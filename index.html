@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RAFAH MANDHI & BRIYANI — Billing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">RM</span>
+        <div>
+          <strong>RAFAH MANDHI & BRIYANI</strong>
+          <p>Restaurant billing</p>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="Views">
+        <button class="tab is-active" type="button" data-view="billing">Billing</button>
+        <button class="tab" type="button" data-view="sales">Monthly sales</button>
+        <button class="tab" type="button" data-view="menu">Manage menu</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="view is-active" id="view-billing">
+        <div class="billing-layout">
+          <div>
+            <div class="view-head">
+              <h1>Menu</h1>
+              <p>Click a dish to add it to the cart and bill.</p>
+            </div>
+            <div class="menu-grid" id="menu-grid"></div>
+          </div>
+
+          <aside class="bill-card" id="bill">
+            <div class="bill-head">
+              <div>
+                <p class="eyebrow">Current bill</p>
+                <h2></h2>
+              </div>
+              <span id="bill-no">—</span>
+            </div>
+            <p class="bill-meta" id="bill-meta"></p>
+            <ul class="cart-list" id="cart-list"></ul>
+            <div class="bill-totals">
+              <div><span>Items</span><strong id="item-count">0</strong></div>
+              <div><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
+              <div class="grand"><span>Total</span><strong id="total">₹0</strong></div>
+            </div>
+            <div class="bill-actions">
+              <button class="btn btn-primary" type="button" id="pay-now">Pay now</button>
+              <button class="btn btn-ghost" type="button" id="print-bill">Print bill</button>
+              <button class="btn btn-danger" type="button" id="clear-cart">Clear cart</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-sales" hidden>
+        <div class="view-head row">
+          <div>
+            <h1>Monthly sales</h1>
+            <p>Paid bills stored on this device.</p>
+          </div>
+          <label class="month-filter">
+            Month
+            <input type="month" id="sales-month" />
+          </label>
+        </div>
+        <div class="stats" id="sales-stats"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Bill</th>
+                <th>Date</th>
+                <th>Items</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="sales-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-menu" hidden>
+        <div class="view-head">
+          <h1>Manage menu</h1>
+          <p>Add, edit, or remove dishes. Changes save automatically.</p>
+        </div>
+        <div class="manage-layout">
+          <form class="menu-form" id="menu-form">
+            <input type="hidden" id="item-id" />
+            <label>
+              Dish name
+              <input type="text" id="item-name" required placeholder="Chicken Mandhi" />
+            </label>
+            <label>
+              Price (₹)
+              <input type="number" id="item-price" required min="1" step="1" />
+            </label>
+            <label class="full">
+              Description
+              <input type="text" id="item-desc" placeholder="Smoky mandhi rice with chicken" />
+            </label>
+            <label class="full">
+              Image URL
+              <input type="url" id="item-image" placeholder="https://..." />
+            </label>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" id="save-item">Add dish</button>
+              <button class="btn btn-ghost" type="button" id="reset-form">Cancel</button>
+            </div>
+          </form>
+          <div class="manage-list" id="manage-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <div class="modal" id="pay-modal" hidden>
+      <div class="modal-card" role="dialog" aria-labelledby="pay-title">
+        <h2 id="pay-title">Pay now</h2>
+        <p id="pay-amount"></p>
+        <img id="qr-image" alt="UPI payment QR code" />
+        <p class="qr-hint">Scan the QR to pay. Then mark the bill as paid.</p>
+        <div class="bill-actions">
+          <button class="btn btn-primary" type="button" id="mark-paid">Mark as paid</button>
+          <button class="btn btn-ghost" type="button" id="close-pay">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
